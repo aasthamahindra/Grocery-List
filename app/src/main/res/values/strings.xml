@@ -16,4 +16,7 @@
     <string name="saveButton">SAVE</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="grocery_name">Grocery Name</string>
+    <string name="sure_text">Are you sure ?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

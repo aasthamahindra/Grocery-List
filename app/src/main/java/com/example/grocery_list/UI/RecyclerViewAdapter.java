@@ -95,7 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View view) {
 
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.editButton:
 
                     break;
@@ -103,8 +103,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 case R.id.deleteButton:
 
                     break;
-
             }
+        }
+        public void deleteItem(int id){
 
         }
     }

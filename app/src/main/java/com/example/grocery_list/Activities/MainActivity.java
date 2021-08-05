@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
      setContentView(binding.getRoot());
 
      db = new DatabaseHandler(this);
+     byPassActivity();
 
         setSupportActionBar(binding.toolbar);
 
@@ -126,6 +127,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ListActivity.class));
             }
         }, 1000);
+    }
 
+    public void byPassActivity(){
+        /*
+        * Checks if database is empty; if not, then we just
+        * go to ListActivity and show all items
+        */
+        if(db.getGroceryCount() >0){
+            startActivity(new Intent(MainActivity.this, ListActivity.class));
+            finish();
+        }
     }
 }
