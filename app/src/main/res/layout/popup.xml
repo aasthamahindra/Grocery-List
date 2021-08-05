@@ -16,42 +16,42 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:text="@string/grocery_list"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/enterItem"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/title"
-                android:minHeight="48dp"
-                android:hint="@string/enter_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="10dp"
+                android:hint="@string/enter_item"
+                android:minHeight="48dp" />
 
             <EditText
                 android:id="@+id/enterQuantity"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/enterItem"
-                android:minHeight="48dp"
-                android:hint="@string/enter_quantity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/enterItem"
+                android:layout_marginTop="10dp"
+                android:hint="@string/enter_quantity"
+                android:minHeight="48dp" />
 
             <Button
                 android:id="@+id/saveButton"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/enterQuantity"
+                android:layout_marginTop="10dp"
                 android:text="@string/saveButton"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
