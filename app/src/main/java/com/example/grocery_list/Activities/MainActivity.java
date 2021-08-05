@@ -1,22 +1,25 @@
 package com.example.grocery_list.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.grocery_list.Data.DatabaseHandler;
+import com.example.grocery_list.Model.Grocery;
 import com.example.grocery_list.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import com.example.grocery_list.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -85,15 +88,44 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo: Save to db
-                //Todo: Go to next activity
-
-                saveGroceryToDB(view);
+                if(!groceryItem.getText().toString().isEmpty()
+                && !quantity.getText().toString().isEmpty()){
+                    saveGroceryToDB(view);
+                }
             }
         });
 
     }
 
     private void saveGroceryToDB(View view) {
+
+        Grocery grocery = new Grocery();
+
+        String newGrocery = groceryItem.getText().toString();
+        String newGroceryQuantity = quantity.getText().toString();
+
+        grocery.setName(newGrocery);
+        grocery.setQuantity(newGroceryQuantity);
+
+        //Save to db
+        db.addGrocery(grocery);
+
+        Snackbar.make(view, "Item Added! ", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        /*
+        * Hide keyboard
+        * quantity.onEditorAction(EditorInfo.IME_ACTION_DONE);
+        * */
+
+        //Adding delay
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                //start a new activity
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+            }
+        }, 1000);
+
     }
 }
