@@ -1,5 +1,6 @@
 package com.example.grocery_list.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.grocery_list.Data.DatabaseHandler;
@@ -8,9 +9,13 @@ import com.example.grocery_list.UI.RecyclerViewAdapter;
 import com.example.grocery_list.databinding.ActivityListBinding;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,6 +39,13 @@ public class ListActivity extends AppCompatActivity {
     private List<Grocery> groceryList;
     private List<Grocery> listItems;
     private DatabaseHandler db;
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog dialog;
+
+    private EditText groceryItem;
+    private EditText quantity;
+    private Button saveButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +60,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //go to next activity
+                createPopDialog();
 
             }
         });
@@ -69,7 +82,6 @@ public class ListActivity extends AppCompatActivity {
             grocery.setId(c.getId());
             grocery.setDateItemAdded("Added on: " + c.getDateItemAdded());
 
-
             listItems.add(grocery);
 
         }
@@ -79,4 +91,56 @@ public class ListActivity extends AppCompatActivity {
         recyclerViewAdapter.notifyDataSetChanged();
     }
 
+    private void createPopDialog() {
+
+        alertDialogBuilder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.popup, null);
+
+        groceryItem = (EditText) view.findViewById(R.id.enterItem);
+        quantity = (EditText)  view.findViewById(R.id.enterQuantity);
+        saveButton = (Button) view.findViewById(R.id.saveButton);
+
+        alertDialogBuilder.setView(view);
+        dialog = alertDialogBuilder.create();
+        dialog.show();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveGroceryToDB(view);
+            }
+        });
+
+    }
+
+    private void saveGroceryToDB(View v){
+        Grocery grocery = new Grocery();
+
+        String newGrocery = groceryItem.getText().toString();
+        String newGroceryQuantity = quantity.getText().toString();
+
+        grocery.setName(newGrocery);
+        grocery.setQuantity(newGroceryQuantity);
+
+        //Save to db
+        db.addGrocery(grocery);
+
+        Snackbar.make(v, "Item Added! ", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        /*
+         * Hide keyboard
+         * quantity.onEditorAction(EditorInfo.IME_ACTION_DONE);
+         * */
+
+        //Adding delay
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                //start a new activity
+                startActivity(new Intent(ListActivity.this, ListActivity.class));
+                finish();
+            }
+        }, 1000);
+    }
 }
