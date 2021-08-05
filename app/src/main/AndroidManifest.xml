@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GroceryList">
         <activity
+            android:name=".Activities.DetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.ListActivity"
             android:exported="true"
             android:label="@string/title_activity_list"
