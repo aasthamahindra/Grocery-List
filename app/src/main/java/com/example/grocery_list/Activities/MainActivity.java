@@ -2,6 +2,7 @@ package com.example.grocery_list.Activities;
 
 import android.os.Bundle;
 
+import com.example.grocery_list.Data.DatabaseHandler;
 import com.example.grocery_list.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText groceryItem;
     private EditText quantity;
     private Button saveButton;
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
      binding = ActivityMainBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
+
+     db = new DatabaseHandler(this);
 
         setSupportActionBar(binding.toolbar);
 
@@ -84,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 //Todo: Save to db
                 //Todo: Go to next activity
 
-                saveGroceryToDB();
+                saveGroceryToDB(view);
             }
         });
 
     }
 
-    private void saveGroceryToDB() {
+    private void saveGroceryToDB(View view) {
     }
 }

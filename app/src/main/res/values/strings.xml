@@ -14,4 +14,6 @@
     <string name="enter_item">Enter Item</string>
     <string name="enter_quantity">Enter Quantity</string>
     <string name="saveButton">SAVE</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="grocery_name">Grocery Name</string>
 </resources>
